@@ -14,5 +14,6 @@ def learning():
     # 学習モデルの作成
     learner = learningModel.LearningModel(
         train_data=train_data, test_data=test_data)
-    result = learner.decision_tree_predict()
-    print(result)
+    learner.decision_tree_predict(
+        ['Pclass', 'Sex', 'Age', 'Fare', 'SibSp', 'Parch', 'Embarked'])
+    learner.convert_result_to_csv('out/result.csv')
