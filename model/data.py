@@ -1,3 +1,4 @@
+from os import add_dll_directory
 import numpy as np
 import pandas as pd
 
@@ -7,6 +8,8 @@ class DataModel(object):
 
     def __init__(self, csv_path):
         self.data_frame = pd.read_csv(csv_path)
+        self.convert_category_to_int()
+        self.add_null_datas()
 
     # 欠損データの確認
     def lack_table(self):
@@ -18,7 +21,7 @@ class DataModel(object):
         return lack_table_ren_columns
 
     # カテゴリデータを数値に変換する
-    def convert_category(self):
+    def convert_category_to_int(self):
         self.data_frame["Sex"][self.data_frame["Sex"] == "male"] = 0
         self.data_frame["Sex"][self.data_frame["Sex"] == "female"] = 1
         self.data_frame["Embarked"][self.data_frame["Embarked"] == "S"] = 0

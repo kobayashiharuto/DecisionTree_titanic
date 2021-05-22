@@ -8,21 +8,22 @@ from model import data
 class LearningModel(object):
     """整形されたデータを受け取って解析を行う目的です"""
 
-    def __init__(self, train_data: data.DataModel, test_data: data.DataModel):
-        self.train_data: pd.DataFrame = train_data.data_frame
-        self.test_data: pd.DataFrame = test_data.data_frame
+    def __init__(self, train: data.DataModel, test: data.DataModel):
+        self.train_data: pd.DataFrame = train.data_frame
+        self.test_data: pd.DataFrame = test.data_frame
 
     # 学習し予想を導く
-    def decision_tree_predict(self, feature_datas, max_depth, min_samples_split):
-        target = self.train_data['Survived'].values
-        features_one = self.train_data[feature_datas].values
+    def decision_tree_predict(self, target_column_name, feature_column_names, max_depth, min_samples_split):
+        target = self.train_data[target_column_name].values
+        features_one = self.train_data[feature_column_names].values
         # 決定木の作成
         my_tree_one = tree.DecisionTreeClassifier(
-            max_depth=max_depth, min_samples_split=min_samples_split, random_state=1)
+            max_depth=max_depth,
+            min_samples_split=min_samples_split,
+            random_state=1
+        )
         my_tree_one = my_tree_one.fit(features_one, target)
-        # 「test」の説明変数の値を取得
-        test_features = self.test_data[feature_datas].values
-        # 「test」の説明変数を使って「my_tree_one」のモデルで予測
+        test_features = self.test_data[feature_column_names].values
         self.result = my_tree_one.predict(test_features)
 
     # 予想結果をCSVに変換して保存

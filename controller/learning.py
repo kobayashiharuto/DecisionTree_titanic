@@ -6,15 +6,25 @@ def learning():
     train_data = data.DataModel('data/train.csv')
     test_data = data.DataModel('data/test.csv')
 
-    train_data.convert_category()
-    test_data.convert_category()
-
-    train_data.add_null_datas()
-    test_data.add_null_datas()
-
     # 学習モデルの作成
     learner = learningModel.LearningModel(
-        train_data=train_data, test_data=test_data)
+        train=train_data,
+        test=test_data
+    )
+    # パラメータを渡して予想する
     learner.decision_tree_predict(
-        ['Pclass', 'Sex', 'Age', 'Fare', 'SibSp', 'Parch', 'Embarked'], max_depth=10, min_samples_split=5)
+        target_column_name='Survived',
+        feature_column_names=[
+            'Pclass',
+            'Sex',
+            'Age',
+            'Fare',
+            'SibSp',
+            'Parch',
+            'Embarked'
+        ],
+        max_depth=15,
+        min_samples_split=5
+    )
+    # 結果をCSVに吐き出す
     learner.convert_result_to_csv('out/result.csv')
