@@ -13,7 +13,6 @@ class LearningModel(object):
         self.test_data: pd.DataFrame = test_data.data_frame
 
     def decision_tree_predict(self, feature_datas):
-        print(self.train_data.head)
         target = self.train_data['Survived'].values
         features_one = self.train_data[feature_datas].values
         # 決定木の作成
@@ -32,3 +31,4 @@ class LearningModel(object):
             self.result, PassengerId, columns=["Survived"])
         # my_tree_one.csvとして書き出し
         my_solution.to_csv(path, index_label=["PassengerId"])
+        print('success!')
