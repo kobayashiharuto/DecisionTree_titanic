@@ -12,17 +12,20 @@ class LearningModel(object):
         self.train_data: pd.DataFrame = train_data.data_frame
         self.test_data: pd.DataFrame = test_data.data_frame
 
-    def decision_tree_predict(self, feature_datas):
+    # 学習し予想を導く
+    def decision_tree_predict(self, feature_datas, max_depth, min_samples_split):
         target = self.train_data['Survived'].values
         features_one = self.train_data[feature_datas].values
         # 決定木の作成
-        my_tree_one = tree.DecisionTreeClassifier()
+        my_tree_one = tree.DecisionTreeClassifier(
+            max_depth=max_depth, min_samples_split=min_samples_split, random_state=1)
         my_tree_one = my_tree_one.fit(features_one, target)
         # 「test」の説明変数の値を取得
         test_features = self.test_data[feature_datas].values
         # 「test」の説明変数を使って「my_tree_one」のモデルで予測
         self.result = my_tree_one.predict(test_features)
 
+    # 予想結果をCSVに変換して保存
     def convert_result_to_csv(self, path):
         # PassengerIdを取得
         PassengerId = np.array(self.test_data["PassengerId"]).astype(int)
