@@ -2,8 +2,8 @@ from model import data, learningModel
 
 
 def learning():
-    train_data = data.DataModel('data/test.csv')
-    test_data = data.DataModel('data/train.csv')
+    train_data = data.DataModel('data/train.csv')
+    test_data = data.DataModel('data/test.csv')
 
     train_data.convert_category()
     test_data.convert_category()
@@ -12,4 +12,7 @@ def learning():
     test_data.add_null_datas()
 
     # 学習モデルの作成
-    learner = learningModel.LearningModel(train_data, test_data)
+    learner = learningModel.LearningModel(
+        train_data=train_data, test_data=test_data)
+    result = learner.decision_tree_predict()
+    print(result)
