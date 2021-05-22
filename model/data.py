@@ -3,7 +3,7 @@ import pandas as pd
 
 
 class DataModel(object):
-    """CSV から学習しやすい形に持っていくデータクラス"""
+    """CSV から学習しやすい形に整形する目的です"""
 
     def __init__(self, csv_path):
         self.data_frame = pd.read_csv(csv_path)

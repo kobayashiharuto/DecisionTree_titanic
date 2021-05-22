@@ -1,4 +1,4 @@
-from model import data
+from model import data, learningModel
 
 
 def learning():
@@ -10,3 +10,6 @@ def learning():
 
     train_data.add_null_datas()
     test_data.add_null_datas()
+
+    # 学習モデルの作成
+    learner = learningModel.LearningModel(train_data, test_data)
