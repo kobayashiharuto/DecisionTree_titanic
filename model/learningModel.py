@@ -19,9 +19,10 @@ class LearningModel(object):
 
         # 決定木の作成
         my_tree_one = tree.DecisionTreeClassifier(
-            max_depth=max_depth,
-            min_samples_split=min_samples_split,
-            random_state=1
+            criterion='entropy',
+            min_samples_split=2,
+            min_samples_leaf=10,
+            random_state=5
         )
 
         # 学習データをセット

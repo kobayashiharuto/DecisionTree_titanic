@@ -19,8 +19,10 @@ def learning():
             'Sex',
             'Age',
             'Fare',
+            'SibSp',
+            'Parch',
         ],
-        max_depth=3,
+        max_depth=10,
         min_samples_split=5
     )
     # 結果をCSVに吐き出す
