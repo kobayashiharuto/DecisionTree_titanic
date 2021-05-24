@@ -19,12 +19,11 @@ def learning():
             'Sex',
             'Age',
             'Fare',
-            'SibSp',
-            'Parch',
-            'Embarked'
         ],
-        max_depth=15,
+        max_depth=3,
         min_samples_split=5
     )
     # 結果をCSVに吐き出す
     learner.convert_result_to_csv('out/result.csv')
+    # 結果を
+    print('success!')
