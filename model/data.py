@@ -1,13 +1,14 @@
 from os import add_dll_directory
 import numpy as np
 import pandas as pd
+from pandas.core.frame import DataFrame
 
 
 class DataModel(object):
     """CSV から学習しやすい形に整形する目的です"""
 
     def __init__(self, csv_path):
-        self.data_frame = pd.read_csv(csv_path)
+        self.data_frame: DataFrame = pd.read_csv(csv_path)
         self.convert_category_to_int()
         self.add_null_datas()
 
@@ -22,11 +23,11 @@ class DataModel(object):
 
     # カテゴリデータを数値に変換する
     def convert_category_to_int(self):
-        self.data_frame["Sex"][self.data_frame["Sex"] == "male"] = 0
-        self.data_frame["Sex"][self.data_frame["Sex"] == "female"] = 1
-        self.data_frame["Embarked"][self.data_frame["Embarked"] == "S"] = 0
-        self.data_frame["Embarked"][self.data_frame["Embarked"] == "C"] = 1
-        self.data_frame["Embarked"][self.data_frame["Embarked"] == "Q"] = 2
+        sex_mapping = {'male': 0, 'female': 1}
+        embarked_mapping = {'S': 0, 'C': 1, 'Q': 2}
+        self.data_frame["Sex"] = self.data_frame["Sex"].map(sex_mapping)
+        self.data_frame["Embarked"] = self.data_frame["Embarked"].map(
+            embarked_mapping)
 
     # nullデータを埋める
     def add_null_datas(self):
