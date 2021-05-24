@@ -29,15 +29,15 @@ class LearningModel(object):
         test_features = self.test_data[feature_column_names].values
         self.result = my_tree_one.predict(test_features)
 
-        # 決定木を描画
         viz = dtreeviz(
             my_tree_one,
             features_one,
             target,
             target_name='variety',
-            feature_names=['Death', 'Survived'],
-            class_names=target_column_name,
+            feature_names=feature_column_names,
+            class_names=['Dead', 'Survived'],
         )
+
         viz.view()
 
     # 予想結果をCSVに変換して保存
